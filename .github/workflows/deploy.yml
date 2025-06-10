@@ -22,12 +22,12 @@ jobs:
         id: surge-deploy
         run: |
           # Ejecuta el despliegue y captura la URL
-          DEPLOY_OUTPUT=$(surge ./ --domain ${{ secrets.SURGE_DOMAIN || 'auto' })
+          DEPLOY_OUTPUT=$(surge ./ --domain ${{ secrets.SURGE_DOMAIN || 'auto' }})
           echo "$DEPLOY_OUTPUT"
           
           # Extrae la URL del output
           DEPLOY_URL=$(echo "$DEPLOY_OUTPUT" | grep -o 'https://[^ ]*\.surge\.sh')
-          echo "::set-output name=url::$DEPLOY_URL"
+          echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
